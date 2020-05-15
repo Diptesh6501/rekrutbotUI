@@ -1,0 +1,106 @@
+<div class="form-container" [ngClass]="showLoader? 'loading' : 'not-loading'">
+  <div class="header">
+    Fill Candidates details below
+  </div>
+  <div *ngIf="!splittedView">
+    <form [formGroup]="candidateForm" (ngSubmit)="onSubmit(myForm)">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="firstname">First Name</label>
+          <input type="name" class="form-control" formControlName="fName" placeholder="Enter First Name" id="name">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastname">Last Name</label>
+          <input type="lastname" class="form-control" formControlName="lName" placeholder="Enter Last Name"
+            id="lastname">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" formControlName="email" placeholder="Enter Email" id="email">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="phone">Phone no</label>
+          <input type="phone" class="form-control" formControlName="phoneNo" placeholder="Enter Phone" id="phone">
+        </div>
+        <div class="form-group col-md-12">
+          <label for="skills">skills</label>
+          <input type="skills" class="form-control" formControlName="skills" placeholder="Enter Skills" id="skills">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="currentctc">Current Ctc</label>
+          <input type="currentctc" class="form-control" formControlName="cCtc" placeholder="Enter Current Ctc"
+            id="currentctc">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="expectedctc">Expected Ctc</label>
+          <input type="expectedctc" class="form-control" formControlName="eCtc" placeholder="Enter Expected Ctc"
+            id="expectedctc">
+        </div>
+        <div class="col-md-6">
+          <label>Attach Resume:-</label>&nbsp;&nbsp;<span><input type="file" (change)="onFileChange($event)"
+              class="input" /></span>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary float-right" [disabled]="!file">Submit</button>
+
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="row" *ngIf="splittedView">
+    <div class="col-md-6">
+      <form [formGroup]="candidateForm" (ngSubmit)="onSubmit(myForm)">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="firstname">First Name</label>
+            <input type="name" class="form-control" formControlName="fName" placeholder="Enter First Name" id="name">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lastname">Last Name</label>
+            <input type="lastname" class="form-control" formControlName="lName" placeholder="Enter Last Name"
+              id="lastname">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter Email" id="email">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="phone">Phone no</label>
+            <input type="phone" class="form-control" formControlName="phoneNo" placeholder="Enter Phone" id="phone">
+          </div>
+          <div class="form-group col-md-12">
+            <label for="skills">skills</label>
+            <input type="skills" class="form-control" formControlName="skills" placeholder="Enter Skills" id="skills">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="currentctc">Current Ctc</label>
+            <input type="currentctc" class="form-control" formControlName="cCtc" placeholder="Enter Current Ctc"
+              id="currentctc">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="expectedctc">Expected Ctc</label>
+            <input type="expectedctc" class="form-control" formControlName="eCtc" placeholder="Enter Expected Ctc"
+              id="expectedctc">
+          </div>
+          <div class="col-md-6">
+            <!-- <label>Attach Resume:-</label>&nbsp;&nbsp;<span><input type="file" (change)="onFileChange($event)"
+                class="input" /></span> -->
+          </div>
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-primary float-right" id="resume">Submit</button>
+
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="col-md-6">
+        <iframe src="http://localhost:8080/pdf"></iframe>
+    </div>
+  </div>
+</div>
+
+<app-loaders *ngIf="showLoader"></app-loaders>

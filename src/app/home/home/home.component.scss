@@ -1,0 +1,44 @@
+.home-container {
+    padding: 20px;
+    margin: auto;
+
+    .card-body {
+        font-size: 13px;
+    }
+
+    .card {
+        margin-bottom: 16px;
+    }
+}
+
+
+.link {
+    color: #4483da;
+    cursor: pointer;
+}
+
+.notFound {
+    font-size: 15px;
+    position: absolute;
+    top: 40%;
+    left: 29%;
+}
+
+.backToHome {
+    font-size: 13px;
+    margin-left: 13px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.search-bar {
+    margin-bottom: 16px;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-size: 13px;
+    opacity: 1;
+    /* Firefox */
+}

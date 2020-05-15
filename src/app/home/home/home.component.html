@@ -1,0 +1,59 @@
+<app-navbar (fileChange)="getFiles($event)"></app-navbar>
+<div class="home-container" [ngClass]="showLoader? 'loading' : 'not-loading' ">
+    <div *ngIf="candidates && !showSearch">
+        <div class="search-bar">
+            <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
+                placeholder="Search a candidate by skill">
+        </div>
+        <div class="card bg-light text-dark" *ngFor="let candidate of candidates">
+            <div class="card-body row">
+                <div class="col-md-4 offset-md-1">
+                    <div>First name:- {{candidate.fName}}</div>
+                    <div> Last name:- {{candidate.lName}}</div>
+                    <div>Email:- {{candidate.email}}</div>
+                    <div>Phone no:- {{candidate.phoneNo}} </div>
+                </div>
+                <div class="col-md-4 offset-md-1">
+                    <div> Current CTC:- {{candidate.cCtc}} </div>
+                    <div> Expected CTC:- {{candidate.eCtc}}</div>
+                    <div> Skills:- {{candidate.skills}}</div>
+                    <div> Resume: - <a href={{candidate.url}}>Download Resume</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="searchResult && showSearch">
+        <div class="backToHome" (click)="goBackToHome()">
+            <span><i class="fa fa-arrow-left"></i></span>&nbsp;<span>Back To Home</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
+                placeholder="Search a candidate by skill">
+        </div>
+        <div class="card bg-light text-dark" *ngFor="let candidate of searchResult">
+            <div class="card-body row">
+                <div class="col-md-4 offset-md-1">
+                    <div>First name:- {{candidate.fName}}</div>
+                    <div> Last name:- {{candidate.lName}}</div>
+                    <div>Email:- {{candidate.email}}</div>
+                    <div>Phone no:- {{candidate.phoneNo}} </div>
+                </div>
+                <div class="col-md-4 offset-md-1">
+                    <div> Current CTC:- {{candidate.cCtc}} </div>
+                    <div> Expected CTC:- {{candidate.eCtc}}</div>
+                    <div> Skills:- {{candidate.skills}}</div>
+                    <div> Resume: - <a href={{candidate.url}}>Download Resume</a></div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!searchResult?.length" class="notFound">
+            There are no candidates found with keyword <b>{{search}}</b>
+        </div>
+    </div>
+</div>
+<div class="notFound" *ngIf="!searchResut && !candidates">
+    There is no candidate currently available please <span class="link" [routerLink]="['/candidateForm']">click
+        here</span> to add some candidates
+</div>
+<app-loaders *ngIf="showLoader"></app-loaders>
+<!-- <router-outlet></router-outlet> -->
