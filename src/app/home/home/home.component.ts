@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateService } from 'src/app/services/candidate.service';
-import { Router, NavigationExtras } from '@angular/router';
-import { standardizeConfig } from '@angular/router/src/config';
+import { Router} from '@angular/router';
 
 
 @Component({

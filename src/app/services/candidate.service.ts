@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidateService {
-  baseUrl = 'http://localhost:8080/';
+  baseUrl = environment.apiUrl;
   candidateId: any;
   state: any;
   constructor(
@@ -55,14 +56,14 @@ export class CandidateService {
     }
   }
 
-    parseResume(file) {
-      const formData: FormData = new FormData();
-      formData.append('file', file, file.name);
-      return this.http.post(`${this.baseUrl}parseResume`, formData);
-    }
-
-    getSearchResults(search) {
-      console.log('search in service', search);
-      return this.http.post(`${this.baseUrl}searchCandidates`, search);
-    }
+  parseResume(file) {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(`${this.baseUrl}parseResume`, formData);
   }
+
+  getSearchResults(search) {
+    console.log('search in service', search);
+    return this.http.post(`${this.baseUrl}searchCandidates`, search);
+  }
+}
