@@ -1,6 +1,6 @@
 <app-navbar (fileChange)="getFiles($event)"></app-navbar>
 <div class="home-container" [ngClass]="showLoader? 'loading' : 'not-loading' ">
-    <div *ngIf="candidates && !showSearch">
+    <div *ngIf="candidates?.length && !showSearch">
         <div class="search-bar">
             <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
                 placeholder="Search a candidate by skill">
@@ -17,7 +17,9 @@
                     <div> Current CTC:- {{candidate.cCtc}} </div>
                     <div> Expected CTC:- {{candidate.eCtc}}</div>
                     <div> Skills:- {{candidate.skills}}</div>
-                    <div> Resume: - <a href={{candidate.url}}>Download Resume</a></div>
+                    <div> <span>Resume: - </span> <span class="link" (click)="downloadFile(candidate.filename)">Download
+                            Resume</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,7 +44,9 @@
                     <div> Current CTC:- {{candidate.cCtc}} </div>
                     <div> Expected CTC:- {{candidate.eCtc}}</div>
                     <div> Skills:- {{candidate.skills}}</div>
-                    <div> Resume: - <a href={{candidate.url}}>Download Resume</a></div>
+                    <div> <span>Resume: - </span> <span (click)="downloadFile(candidate.filename)">Download
+                            Resume</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,7 +55,7 @@
         </div>
     </div>
 </div>
-<div class="notFound" *ngIf="!candidates">
+<div class="notFound" *ngIf="!candidates?.length">
     There is no candidate currently available please <span class="link" [routerLink]="['/candidateForm']">click
         here</span> to add some candidates
 </div>

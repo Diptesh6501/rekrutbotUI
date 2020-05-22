@@ -66,7 +66,6 @@ export class CandidateFormComponent implements OnInit {
 
   uploadFileToAws() {
     this.candidateService.uploadtoAws(this.file).subscribe((res) => {
-      console.log('res is after promise=>', res);
       this.showLoader = false;
       this.router.navigate(['']);
     });
@@ -75,10 +74,8 @@ export class CandidateFormComponent implements OnInit {
   onSubmit() {
     this.showLoader = true;
     const data = this.candidateForm.value;
-    console.log('data is', data);
     this.candidateService.saveCandidateInfo(data).subscribe((res) => {
       this.uploadFileToAws();
-      console.log('res is', res);
     });
   }
 

@@ -31,6 +31,10 @@ export class CandidateService {
     return this.http.get(`${this.baseUrl}getAllCandidates?id=${id}`);
   }
 
+  downloadFile(file) {
+    return this.http.get(`${this.baseUrl}download/${file}`, {responseType: 'blob'});
+  }
+
   async setCandidateId(id) {
     this.candidateId = id;
   }

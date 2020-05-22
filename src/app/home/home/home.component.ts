@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateService } from 'src/app/services/candidate.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -28,7 +29,6 @@ export class HomeComponent implements OnInit {
     this.candidateService.getAllCandidate().subscribe((res) => {
       this.candidates = res['candidates'];
       this.showSearch = false;
-
     });
   }
 
@@ -39,11 +39,8 @@ export class HomeComponent implements OnInit {
 
   getSearch() {
     const query = { searchText: this.search };
-    console.log(this.search);
-    console.log(this.search.length);
     if (this.search.length >= 3) {
       this.candidateService.getSearchResults(query).subscribe((res) => {
-        console.log('res of search', res);
         this.showSearch = true;
         this.searchResult = res['candidateDetail'];
       });
@@ -73,6 +70,12 @@ export class HomeComponent implements OnInit {
     this.file = event;
     this.parseResume(this.file);
     this.file = '';
+  }
+
+  downloadFile(file) {
+    this.candidateService.downloadFile(file).subscribe((res) => {
+      saveAs(res, file);
+    });
   }
 
   async viewCandidateDetails(id) {
