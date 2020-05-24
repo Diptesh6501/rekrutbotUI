@@ -25,7 +25,6 @@ export class CandidateFormComponent implements OnInit {
   ngOnInit() {
     this.checkView();
     this.state = this.candidateService.getState();
-    console.log('state in candidate form', this.state);
     if (this.state) {
       this.candidateForm = new FormGroup({
         fName: new FormControl(this.state.name),
@@ -33,6 +32,7 @@ export class CandidateFormComponent implements OnInit {
         email: new FormControl(this.state.email),
         phoneNo: new FormControl(this.state.phoneNumber),
         skills: new FormControl(this.state.skills),
+        currentLocation: new FormControl(''),
         cCtc: new FormControl(''),
         eCtc: new FormControl('')
       });
@@ -46,6 +46,7 @@ export class CandidateFormComponent implements OnInit {
         email: new FormControl(''),
         phoneNo: new FormControl(''),
         skills: new FormControl([]),
+        currentLocation: new FormControl(''),
         cCtc: new FormControl(''),
         eCtc: new FormControl('')
       });
