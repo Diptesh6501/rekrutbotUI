@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CandidateService } from 'src/app/services/candidate.service';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
+import {environment} from '../../../environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
+
+
 
 
 @Component({
@@ -12,29 +16,51 @@ import { saveAs } from 'file-saver';
 export class HomeComponent implements OnInit {
   candidates: any;
   searchResult: any;
+  candidatesAvailable = true;
   showSearch: Boolean;
   search: any;
+  quickViewUrl = environment.apiUrl;
+  safeQuickViewUrl: any;
   showLoader: Boolean;
   file: any;
   constructor(
     private candidateService: CandidateService,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
+    private router: Router,
+    public sanitizer: DomSanitizer
+  ) {
     this.getCandidates();
   }
 
+  ngOnInit() {
+    this.safeQuickViewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.quickViewUrl);
+  }
+
   getCandidates() {
+    this.showLoader = true;
     this.candidateService.getAllCandidate().subscribe((res) => {
       this.candidates = res['candidates'];
-      this.showSearch = false;
+      if (this.candidates && this.candidates.length) {
+        this.showSearch = false;
+        this.candidatesAvailable = true;
+        this.showLoader = false;
+      } else {
+        this.candidatesAvailable = false;
+        this.showLoader = false;
+        this.showSearch = false;
+      }
     });
   }
 
   goBackToHome() {
     this.showSearch = false;
     this.search = '';
+  }
+
+  viewResume(filename) {
+    console.log(filename);
+    const url = `${this.quickViewUrl}viewFile?fileName=${filename}`;
+    console.log('url is', url);
+    window.open(url , '_blank');
   }
 
   getSearch() {

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CandidateService } from 'src/app/services/candidate.service';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-candidate-form',
@@ -15,11 +17,16 @@ export class CandidateFormComponent implements OnInit {
   state: any;
   splittedView: any;
   showLoader: Boolean;
+  pdfUrl = environment.apiUrl + 'pdf';
+  safePdfUrl: any;
   constructor(
     private http: HttpClient,
     private candidateService: CandidateService,
-    private router: Router
+    private router: Router,
+    public sanitizer: DomSanitizer
   ) {
+    this.safePdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfUrl);
+
   }
 
   ngOnInit() {
