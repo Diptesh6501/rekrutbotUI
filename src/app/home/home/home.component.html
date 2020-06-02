@@ -22,6 +22,13 @@
                             Resume</span> | <span class="link" (click)="viewResume(candidate.filename)">View File</span>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <button class="md-button" (click)="updateCandidate(candidate)"><i class="fa fa-edit"></i>
+                        Edit</button>
+                    <button class="md-button" (click)="deleteCandidate(candidate.candidateId, candidate.filename)"><i class="fa fa-trash"></i>
+                        Delete</button>
+
+                </div>
             </div>
         </div>
     </div>
@@ -45,9 +52,15 @@
                     <div> Current CTC:- {{candidate.cCtc}} </div>
                     <div> Expected CTC:- {{candidate.eCtc}}</div>
                     <div> Skills:- {{candidate.skills}}</div>
-                    <div> <span>Resume: - </span> <span (click)="downloadFile(candidate.filename)">Download
-                            Resume</span>
+                    <div>
+                        <span>Resume: - </span> <span class="link" (click)="downloadFile(candidate.filename)">Download
+                            Resume</span> | <span class="link" (click)="viewResume(candidate.filename)">View File</span>
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="md-button" (click)="updateCandidate(candidate)"><i class="fa fa-edit"></i>
+                        Edit</button>
+
                 </div>
             </div>
         </div>

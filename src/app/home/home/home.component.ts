@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CandidateService } from 'src/app/services/candidate.service';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.candidateService.storeState({});
     this.safeQuickViewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.quickViewUrl);
   }
 
@@ -60,7 +61,7 @@ export class HomeComponent implements OnInit {
     console.log(filename);
     const url = `${this.quickViewUrl}viewFile?fileName=${filename}`;
     console.log('url is', url);
-    window.open(url , '_blank');
+    window.open(url, '_blank');
   }
 
   getSearch() {
@@ -74,12 +75,33 @@ export class HomeComponent implements OnInit {
 
   }
 
+  async updateCandidate(candidate) {
+    console.log('candidate is', candidate);
+    this.showLoader = true;
+    const state = {};
+    state['isUpdate'] = true;
+    state['candidateId'] = candidate.candidateId;
+    state['fName'] = candidate.fName;
+    state['lName'] = candidate.lName;
+    state['email'] = candidate.email;
+    state['phoneNo'] = candidate.phoneNo;
+    state['skills'] = candidate.skills;
+    state['currentLocation'] = candidate.currentLocation;
+    state['filename'] = candidate.filename;
+    state['cCtc'] = candidate.cCtc;
+    state['eCtc'] = candidate.eCtc;
+    await this.candidateService.storeState(state);
+    this.showLoader = false;
+    await this.router.navigate(['candidateForm']);
+  }
+
   async parseResume(file) {
     const state = {};
     this.showLoader = true;
     this.candidateService.parseResume(file).subscribe(async (res) => {
       this.showLoader = false;
       const data = JSON.parse(res['parsedResumeInformation']);
+      state['isUpdate'] = false;
       state['name'] = data.name;
       state['email'] = data.email;
       state['phoneNumber'] = data.phoneNumber;
@@ -101,6 +123,22 @@ export class HomeComponent implements OnInit {
   downloadFile(file) {
     this.candidateService.downloadFile(file).subscribe((res) => {
       saveAs(res, file);
+    });
+  }
+
+  deleteCandidate(candidateId, filename) {
+    const data = {
+      candidateId: candidateId,
+      filename: filename
+    };
+    this.candidateService.deleteCandidate(data).subscribe((res) => {
+      if (res['deleted'] === 'sucessfully') {
+        this.candidates.forEach((item, index) => {
+          if (item.candidateId === candidateId) {
+            this.candidates.splice(index, 1);
+          }
+        });
+      }
     });
   }
 

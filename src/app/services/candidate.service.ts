@@ -35,6 +35,14 @@ export class CandidateService {
     return this.http.get(`${this.baseUrl}download/${file}`, {responseType: 'blob'});
   }
 
+  updateCandidate(candidate) {
+   return this.http.put(`${this.baseUrl}updateCandidate`, candidate);
+  }
+
+  deleteCandidate(candidate) {
+     return this.http.delete(`${this.baseUrl}deleteCandidate/${candidate.candidateId}/${candidate.filename}`, candidate);
+  }
+
   async setCandidateId(id) {
     this.candidateId = id;
   }

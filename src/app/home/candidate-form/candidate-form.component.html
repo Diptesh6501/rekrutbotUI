@@ -29,7 +29,8 @@
         </div>
         <div class="form-group col-md-12">
           <label for="currentLocation">Current Location</label>
-          <input type="currentLocation" class="form-control" formControlName="currentLocation" placeholder="Enter current location" id="currentLocation">
+          <input type="currentLocation" class="form-control" formControlName="currentLocation"
+            placeholder="Enter current location" id="currentLocation">
         </div>
         <div class="form-group col-md-6">
           <label for="currentctc">Current Ctc</label>
@@ -47,7 +48,6 @@
         </div>
         <div class="col-md-6">
           <button type="submit" class="btn btn-primary float-right" [disabled]="!file">Submit</button>
-
         </div>
       </div>
 
@@ -81,7 +81,8 @@
           </div>
           <div class="form-group col-md-12">
             <label for="currentLocation">Current Location</label>
-            <input type="currentLocation" class="form-control" formControlName="currentLocation" placeholder="Enter current location" id="currentLocation">
+            <input type="currentLocation" class="form-control" formControlName="currentLocation"
+              placeholder="Enter current location" id="currentLocation">
           </div>
           <div class="form-group col-md-6">
             <label for="currentctc">Current Ctc</label>
@@ -98,14 +99,18 @@
                 class="input" /></span> -->
           </div>
           <div class="col-md-6">
-            <button type="submit" class="btn btn-primary float-right" id="resume">Submit</button>
-
+            <button type="submit" class="btn btn-primary float-right"
+             [ngClass]="this.state?.isUpdate? 'btn-info': 'btn-primary'"  id="resume">
+             {{ this.state.isUpdate === true ? 'Update' : 'Submit' }}</button>
           </div>
         </div>
       </form>
     </div>
-    <div class="col-md-6">
-        <iframe  [src] ="safePdfUrl"></iframe>
+    <div class="col-md-6" *ngIf="!this.state?.isUpdate">
+      <iframe [src]="safePdfUrl"></iframe>
+    </div>
+    <div class="col-md-6" *ngIf="this.state?.isUpdate">
+      <iframe [src]="updatePdfUrl"></iframe>
     </div>
   </div>
 </div>
