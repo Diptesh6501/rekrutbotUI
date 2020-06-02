@@ -96,13 +96,14 @@ export class CandidateFormComponent implements OnInit {
         this.uploadFileToAws();
       });
     } else if (Boolean(this.state['isUpdate'])) {
-      this.showLoader = false;
       this.candidateForm.addControl('candidateId', new FormControl(this.state.candidateId));
       this.candidateService.updateCandidate(this.candidateForm.value).subscribe((res) => {
         if (Boolean(res['updated'])) {
+          this.showLoader = false;
           this.router.navigate(['/']);
         } else {
-           alert('something went wrong please contact administrator!!!');
+          this.showLoader = false;
+          alert('something went wrong please contact administrator!!!');
         }
       });
     }

@@ -127,6 +127,7 @@ export class HomeComponent implements OnInit {
   }
 
   deleteCandidate(candidateId, filename) {
+    this.showLoader = true;
     const data = {
       candidateId: candidateId,
       filename: filename
@@ -136,8 +137,11 @@ export class HomeComponent implements OnInit {
         this.candidates.forEach((item, index) => {
           if (item.candidateId === candidateId) {
             this.candidates.splice(index, 1);
+            this.showLoader = true;
           }
         });
+      } else {
+        alert('Some problem occoured , please contact administrator');
       }
     });
   }
