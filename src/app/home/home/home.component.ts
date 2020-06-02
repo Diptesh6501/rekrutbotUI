@@ -137,10 +137,11 @@ export class HomeComponent implements OnInit {
         this.candidates.forEach((item, index) => {
           if (item.candidateId === candidateId) {
             this.candidates.splice(index, 1);
-            this.showLoader = true;
+            this.showLoader = false;
           }
         });
       } else {
+        this.showLoader = false;
         alert('Some problem occoured , please contact administrator');
       }
     });
