@@ -75,7 +75,9 @@ export class CandidateService {
   }
 
   getSearchResults(search) {
-    console.log('search in service', search);
     return this.http.post(`${this.baseUrl}searchCandidates`, search);
+  }
+  getAdvancedSearch(searchCriteria) {
+     return this.http.post(`${this.baseUrl}advSearch`, searchCriteria);
   }
 }

@@ -1,10 +1,40 @@
 <app-navbar (fileChange)="getFiles($event)"></app-navbar>
 <div class="home-container" [ngClass]="showLoader? 'loading' : 'not-loading' ">
     <div *ngIf="candidates?.length && !showSearch">
-        <div class="search-bar">
-            <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
-                placeholder="Search a candidate by skill">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="search-bar">
+                    <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
+                        placeholder="Search a candidate by skill">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-info ad-search-btn" (click)="showAdvSearch = true">Advanced Search</button>
+            </div>
         </div>
+        <form [formGroup]="advSearchForm" (ngSubmit)="onSubmit(myForm)" *ngIf="showAdvSearch">
+            <div class="row advSearchForm">
+                <div class="col-md-5">
+                    <input type="name" class="form-control" formControlName="location" placeholder="Enter location"
+                        id="location">
+                </div>
+                <div class="col-md-5">
+                    <input type="email" class="form-control" formControlName="ctc" placeholder="Enter ctc"
+                        id="ctc">
+                </div>
+                <div class="col-md-1">
+                    <i class="fa fa-close" (click)="showAdvSearch = false"></i>
+                </div>
+                <div class="col-md-3 offset-md-9">
+                    <button class="btn btn-secondary ad-search-btn">Search</button>
+                </div>
+                <div class="col-md-10">
+                    <p *ngIf="showErrMsg" class="error-msg"><i class="fa fa-exclamation-triangle"
+                            aria-hidden="true"></i>&nbsp; please fill the details properly</p>
+
+                </div>
+            </div>
+        </form>
         <div class="card bg-light text-dark" *ngFor="let candidate of candidates">
             <div class="card-body row">
                 <div class="col-md-4 offset-md-1">
@@ -25,7 +55,8 @@
                 <div class="col-md-2">
                     <button class="md-button" (click)="updateCandidate(candidate)"><i class="fa fa-edit"></i>
                         Edit</button>
-                    <button class="md-button" (click)="deleteCandidate(candidate.candidateId, candidate.filename)"><i class="fa fa-trash"></i>
+                    <button class="md-button" (click)="deleteCandidate(candidate.candidateId, candidate.filename)"><i
+                            class="fa fa-trash"></i>
                         Delete</button>
 
                 </div>
@@ -47,25 +78,27 @@
                     <div> Last name:- {{candidate.lName}}</div>
                     <div>Email:- {{candidate.email}}</div>
                     <div>Phone no:- {{candidate.phoneNo}} </div>
+                    <div>Current Location:- {{candidate.currentLocation}} </div>
                 </div>
                 <div class="col-md-4 offset-md-1">
                     <div> Current CTC:- {{candidate.cCtc}} </div>
                     <div> Expected CTC:- {{candidate.eCtc}}</div>
                     <div> Skills:- {{candidate.skills}}</div>
-                    <div>
-                        <span>Resume: - </span> <span class="link" (click)="downloadFile(candidate.filename)">Download
+                    <div> <span>Resume: - </span> <span class="link" (click)="downloadFile(candidate.filename)">Download
                             Resume</span> | <span class="link" (click)="viewResume(candidate.filename)">View File</span>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <button class="md-button" (click)="updateCandidate(candidate)"><i class="fa fa-edit"></i>
                         Edit</button>
-
+                    <button class="md-button" (click)="deleteCandidate(candidate.candidateId, candidate.filename)"><i
+                            class="fa fa-trash"></i>
+                        Delete</button>
                 </div>
             </div>
         </div>
         <div *ngIf="!searchResult?.length" class="notFound">
-            There are no candidates found with keyword <b>{{search}}</b>
+            Oops no result found !!
         </div>
     </div>
 </div>

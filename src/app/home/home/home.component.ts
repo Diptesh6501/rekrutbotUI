@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
 import { environment } from '../../../environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 
 
@@ -19,10 +21,13 @@ export class HomeComponent implements OnInit {
   candidatesAvailable = true;
   showSearch: Boolean;
   search: any;
+  showAdvSearch: Boolean;
   quickViewUrl = environment.apiUrl;
   safeQuickViewUrl: any;
   showLoader: Boolean;
   file: any;
+  showErrMsg: Boolean;
+  advSearchForm: FormGroup;
   constructor(
     private candidateService: CandidateService,
     private router: Router,
@@ -34,6 +39,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.candidateService.storeState({});
     this.safeQuickViewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.quickViewUrl);
+    this.advSearchForm = new FormGroup({
+      location: new FormControl(''),
+      ctc: new FormControl(''),
+    });
   }
 
   getCandidates() {
@@ -50,6 +59,17 @@ export class HomeComponent implements OnInit {
         this.showSearch = false;
       }
     });
+  }
+
+  onSubmit() {
+    if (this.advSearchForm.value.location || this.advSearchForm.value.ctc) {
+      this.candidateService.getAdvancedSearch(this.advSearchForm.value).subscribe((res) => {
+          this.showSearch = true;
+          this.searchResult = res['searchResult'];
+      });
+    } else {
+      this.showErrMsg = true;
+    }
   }
 
   goBackToHome() {
@@ -72,7 +92,6 @@ export class HomeComponent implements OnInit {
         this.searchResult = res['candidateDetail'];
       });
     }
-
   }
 
   async updateCandidate(candidate) {
