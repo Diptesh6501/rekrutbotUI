@@ -97,12 +97,18 @@ export class HomeComponent implements OnInit {
   }
 
   getSearch(event: any) {
-    console.log(event.option.value);
     const searchText = event.option.value;
     if (searchText.length) {
+      this.showLoader = true;
       this.candidateService.getSearchResults({ searchText }).subscribe((res) => {
-        this.showSearch = true;
-        this.searchResult = res['candidateDetail'];
+        if (res['status']) {
+          this.showSearch = true;
+          this.searchResult = res['candidateDetail'];
+        } else {
+          this.showSearch = true;
+          this.searchResult = [];
+        }
+        this.showLoader = false;
       });
     }
   }
