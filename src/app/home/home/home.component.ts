@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   file: any;
   showErrMsg: Boolean;
   advSearchForm: FormGroup;
+  skillKeywords: any = [];
   constructor(
     private candidateService: CandidateService,
     private router: Router,
@@ -64,8 +65,8 @@ export class HomeComponent implements OnInit {
   onSubmit() {
     if (this.advSearchForm.value.location || this.advSearchForm.value.ctc) {
       this.candidateService.getAdvancedSearch(this.advSearchForm.value).subscribe((res) => {
-          this.showSearch = true;
-          this.searchResult = res['searchResult'];
+        this.showSearch = true;
+        this.searchResult = res['searchResult'];
       });
     } else {
       this.showErrMsg = true;
@@ -84,10 +85,22 @@ export class HomeComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  getSearch() {
-    const query = { searchText: this.search };
+  getKeywords() {
+    const query = { keyword: this.search };
     if (this.search.length >= 3) {
-      this.candidateService.getSearchResults(query).subscribe((res) => {
+      this.candidateService.getAllSkills(query).subscribe((res: any) => {
+        this.skillKeywords = res.keywords;
+      });
+    } else if (!this.search.length) {
+      this.skillKeywords = [];
+    }
+  }
+
+  getSearch(event: any) {
+    console.log(event.option.value);
+    const searchText = event.option.value;
+    if (searchText.length) {
+      this.candidateService.getSearchResults({ searchText }).subscribe((res) => {
         this.showSearch = true;
         this.searchResult = res['candidateDetail'];
       });

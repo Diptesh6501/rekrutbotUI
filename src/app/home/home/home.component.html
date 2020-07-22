@@ -4,8 +4,19 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="search-bar">
-                    <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
-                        placeholder="Search a candidate by skill">
+                    <!-- <form class="example-form"> -->
+                    <!-- <mat-form-field class="example-full-width"> -->
+                    <input type="text" [(ngModel)]="search" class="form-control" (keyup)="getKeywords()"
+                        placeholder="Search a candidate by skill" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="getSearch($event)">
+                        <mat-option *ngFor="let keyword of skillKeywords" [value]="keyword">
+                            {{keyword}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <!-- </mat-form-field> -->
+                    <!-- </form> -->
+                    <!-- <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup)="getSearch()"
+                        placeholder="Search a candidate by skill"> -->
                 </div>
             </div>
             <div class="col-md-2">
@@ -19,8 +30,7 @@
                         id="location">
                 </div>
                 <div class="col-md-5">
-                    <input type="email" class="form-control" formControlName="ctc" placeholder="Enter ctc"
-                        id="ctc">
+                    <input type="email" class="form-control" formControlName="ctc" placeholder="Enter ctc" id="ctc">
                 </div>
                 <div class="col-md-1">
                     <i class="fa fa-close" (click)="showAdvSearch = false"></i>
@@ -68,8 +78,15 @@
             <span><i class="fa fa-arrow-left"></i></span>&nbsp;<span>Back To Home</span>
         </div>
         <div class="search-bar">
-            <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
-                placeholder="Search a candidate by skill">
+            <input type="text" [(ngModel)]="search" class="form-control" (keyup)="getKeywords()"
+                placeholder="Search a candidate by skill" matInput [matAutocomplete]="auto1">
+            <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="getSearch($event)">
+                <mat-option *ngFor="let keyword of skillKeywords" [value]="keyword">
+                    {{keyword}}
+                </mat-option>
+            </mat-autocomplete>
+            <!-- <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup)="getSearch()"
+                placeholder="Search a candidate by skill"> -->
         </div>
         <div class="card bg-light text-dark" *ngFor="let candidate of searchResult">
             <div class="card-body row">

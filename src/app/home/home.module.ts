@@ -3,24 +3,26 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { HomeRoutingModule } from './home.routing';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CandidateFormComponent } from './candidate-form/candidate-form.component';
 import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadersComponent } from './loaders/loaders.component';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
   declarations: [HomeComponent, LoadersComponent,
-     NavbarComponent, CandidateFormComponent, CandidateDetailsComponent],
+    NavbarComponent, CandidateFormComponent, CandidateDetailsComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     HomeRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
-    FormsModule
+    MatAutocompleteModule,
+    MatInputModule,
   ]
 })
 export class HomeModule { }

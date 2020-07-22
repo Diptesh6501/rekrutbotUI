@@ -32,15 +32,15 @@ export class CandidateService {
   }
 
   downloadFile(file) {
-    return this.http.get(`${this.baseUrl}download/${file}`, {responseType: 'blob'});
+    return this.http.get(`${this.baseUrl}download/${file}`, { responseType: 'blob' });
   }
 
   updateCandidate(candidate) {
-   return this.http.put(`${this.baseUrl}updateCandidate`, candidate);
+    return this.http.put(`${this.baseUrl}updateCandidate`, candidate);
   }
 
   deleteCandidate(candidate) {
-     return this.http.delete(`${this.baseUrl}deleteCandidate/${candidate.candidateId}/${candidate.filename}`, candidate);
+    return this.http.delete(`${this.baseUrl}deleteCandidate/${candidate.candidateId}/${candidate.filename}`, candidate);
   }
 
   async setCandidateId(id) {
@@ -77,7 +77,12 @@ export class CandidateService {
   getSearchResults(search) {
     return this.http.post(`${this.baseUrl}searchCandidates`, search);
   }
+
+  getAllSkills(keyword) {
+    return this.http.post(`${this.baseUrl}getAllSkills`, keyword);
+  }
+  
   getAdvancedSearch(searchCriteria) {
-     return this.http.post(`${this.baseUrl}advSearch`, searchCriteria);
+    return this.http.post(`${this.baseUrl}advSearch`, searchCriteria);
   }
 }
