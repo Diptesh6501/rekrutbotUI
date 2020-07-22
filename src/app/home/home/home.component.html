@@ -1,7 +1,7 @@
 <app-navbar (fileChange)="getFiles($event)"></app-navbar>
 <div class="home-container" [ngClass]="showLoader? 'loading' : 'not-loading' ">
     <div *ngIf="candidates?.length && !showSearch">
-        <div class="row">
+        <div class="row search-text-box">
             <div class="col-md-10">
                 <div class="search-bar">
                     <input type="text" [(ngModel)]="search" class="form-control" id="search" (keyup.enter)="getSearch()"
@@ -97,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="!searchResult?.length" class="notFound">
+        <div *ngIf="!searchResult.length" class="notFound">
             Oops no result found !!
         </div>
     </div>

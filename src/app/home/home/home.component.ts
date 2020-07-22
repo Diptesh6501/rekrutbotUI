@@ -64,8 +64,8 @@ export class HomeComponent implements OnInit {
   onSubmit() {
     if (this.advSearchForm.value.location || this.advSearchForm.value.ctc) {
       this.candidateService.getAdvancedSearch(this.advSearchForm.value).subscribe((res) => {
-          this.showSearch = true;
-          this.searchResult = res['searchResult'];
+        this.showSearch = true;
+        this.searchResult = res['searchResult'];
       });
     } else {
       this.showErrMsg = true;
@@ -87,9 +87,16 @@ export class HomeComponent implements OnInit {
   getSearch() {
     const query = { searchText: this.search };
     if (this.search.length >= 3) {
+      this.showLoader = true;
       this.candidateService.getSearchResults(query).subscribe((res) => {
-        this.showSearch = true;
-        this.searchResult = res['candidateDetail'];
+        if (res['status']) {
+          this.showSearch = true;
+          this.searchResult = res['candidateDetail'];
+        } else {
+          this.showSearch = true;
+          this.searchResult = [];
+        }
+        this.showLoader = false;
       });
     }
   }
