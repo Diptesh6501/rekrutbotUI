@@ -77,10 +77,6 @@ export class CandidateService {
   getSearchResults(search) {
     return this.http.post(`${this.baseUrl}searchCandidates`, search);
   }
-
-  getAllSkills(keyword) {
-    return this.http.post(`${this.baseUrl}getAllSkills`, keyword);
-  }
   
   getAdvancedSearch(searchCriteria) {
     return this.http.post(`${this.baseUrl}advSearch`, searchCriteria);

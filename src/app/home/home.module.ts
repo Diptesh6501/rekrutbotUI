@@ -8,8 +8,6 @@ import { CandidateFormComponent } from './candidate-form/candidate-form.componen
 import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadersComponent } from './loaders/loaders.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -21,8 +19,6 @@ import { MatInputModule } from '@angular/material/input';
     HomeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatInputModule,
   ]
 })
 export class HomeModule { }

@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
   file: any;
   showErrMsg: Boolean;
   advSearchForm: FormGroup;
-  skillKeywords: any = [];
   constructor(
     private candidateService: CandidateService,
     private router: Router,
@@ -85,22 +84,11 @@ export class HomeComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  getKeywords() {
-    const query = { keyword: this.search };
-    if (this.search.length >= 3) {
-      this.candidateService.getAllSkills(query).subscribe((res: any) => {
-        this.skillKeywords = res.keywords;
-      });
-    } else if (!this.search.length) {
-      this.skillKeywords = [];
-    }
-  }
-
   getSearch(event: any) {
-    const searchText = event.option.value;
-    if (searchText.length) {
+    const query = { searchText: this.search };
+    if (this.search.length >= 3) {
       this.showLoader = true;
-      this.candidateService.getSearchResults({ searchText }).subscribe((res) => {
+      this.candidateService.getSearchResults({ query }).subscribe((res) => {
         if (res['status']) {
           this.showSearch = true;
           this.searchResult = res['candidateDetail'];
