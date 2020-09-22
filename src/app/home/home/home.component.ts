@@ -6,10 +6,6 @@ import { environment } from '../../../environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-
-
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -28,7 +24,6 @@ export class HomeComponent implements OnInit {
   file: any;
   showErrMsg: Boolean;
   advSearchForm: FormGroup;
-  skillKeywords: any = [];
   constructor(
     private candidateService: CandidateService,
     private router: Router,
