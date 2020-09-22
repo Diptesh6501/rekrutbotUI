@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 export class CandidateFormComponent implements OnInit {
   candidateForm: FormGroup;
   file: File;
+  fileName: string;
   state: any;
   splittedView: any;
   showLoader: Boolean;
@@ -79,6 +80,7 @@ export class CandidateFormComponent implements OnInit {
 
   onFileChange(event) {
     this.file = event.target.files[0];
+    this.fileName =  event.target.files[0].name;
   }
 
   uploadFileToAws() {
@@ -92,6 +94,7 @@ export class CandidateFormComponent implements OnInit {
     this.showLoader = true;
     if (this.state === undefined || !this.state['isUpdate']) {
       const data = this.candidateForm.value;
+      data.fileName = this.fileName;
       this.candidateService.saveCandidateInfo(data).subscribe((res) => {
         this.uploadFileToAws();
       });

@@ -62,6 +62,25 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  searchCandidates(search) {
+    if (search.length >= 4) {
+      this.showLoader = true;
+      this.candidateService.getSearchResults(search).subscribe((res) => {
+        this.searchResult = res['candidateDetail'];
+        if (this.searchResult && this.searchResult.length) {
+          this.showSearch = true;
+          this.showLoader = false;
+        } else if (!this.searchResult.length) {
+          console.log('result', this.searchResult);
+          this.showSearch = true;
+          this.showLoader = false;
+        }
+      });
+    } else {
+      alert('please enter minimum four alphabets to search !!');
+    }
+  }
+
   onSubmit() {
     if (this.advSearchForm.value.location || this.advSearchForm.value.ctc) {
       this.candidateService.getAdvancedSearch(this.advSearchForm.value).subscribe((res) => {
@@ -83,34 +102,6 @@ export class HomeComponent implements OnInit {
     const url = `${this.quickViewUrl}viewFile?fileName=${filename}`;
     console.log('url is', url);
     window.open(url, '_blank');
-  }
-
-  getKeywords() {
-    const query = { keyword: this.search };
-    if (this.search.length >= 3) {
-      this.candidateService.getAllSkills(query).subscribe((res: any) => {
-        this.skillKeywords = res.keywords;
-      });
-    } else if (!this.search.length) {
-      this.skillKeywords = [];
-    }
-  }
-
-  getSearch(event: any) {
-    const searchText = event.option.value;
-    if (searchText.length) {
-      this.showLoader = true;
-      this.candidateService.getSearchResults({ searchText }).subscribe((res) => {
-        if (res['status']) {
-          this.showSearch = true;
-          this.searchResult = res['candidateDetail'];
-        } else {
-          this.showSearch = true;
-          this.searchResult = [];
-        }
-        this.showLoader = false;
-      });
-    }
   }
 
   async updateCandidate(candidate) {

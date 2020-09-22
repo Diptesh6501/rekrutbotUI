@@ -74,14 +74,17 @@ export class CandidateService {
     return this.http.post(`${this.baseUrl}parseResume`, formData);
   }
 
-  getSearchResults(search) {
-    return this.http.post(`${this.baseUrl}searchCandidates`, search);
+  getSearchResults(searchText) {
+    const data = {
+      textToSearch: searchText
+    };
+    return this.http.post(`${this.baseUrl}searchCandidates`, data);
   }
 
   getAllSkills(keyword) {
     return this.http.post(`${this.baseUrl}getAllSkills`, keyword);
   }
-  
+
   getAdvancedSearch(searchCriteria) {
     return this.http.post(`${this.baseUrl}advSearch`, searchCriteria);
   }

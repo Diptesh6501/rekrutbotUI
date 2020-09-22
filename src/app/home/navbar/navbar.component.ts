@@ -8,7 +8,8 @@ import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   @Output() fileChange = new EventEmitter();
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
