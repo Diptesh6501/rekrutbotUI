@@ -15,8 +15,18 @@
     cursor: pointer;
 }
 
-.fa .fa-exclamation-triangle{
-    color:#bd2130;
+.fa .fa-exclamation-triangle {
+    color: #bd2130;
+}
+
+.padding-right-8 {
+    padding-right: 8px;
+}
+
+.search-footer {
+    float: right;
+    margin-top: -32px;
+    padding-right: 8px;
 }
 
 .error-msg {
@@ -53,6 +63,7 @@
 .ad-search-btn {
     font-size: 12px;
     margin-top: 2px;
+    margin-right: 8px;
 }
 
 .search-text-box {

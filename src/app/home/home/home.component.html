@@ -2,7 +2,7 @@
 <div class="home-container" [ngClass]="showLoader? 'loading' : 'not-loading' ">
     <div *ngIf="candidates?.length && !showSearch">
         <div class="row search-text-box">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <div class="search-bar">
                     <input type="text" [(ngModel)]="search" class="form-control"
                         (keyup.enter)="searchCandidates(search)" placeholder="Search a candidate by skill">
@@ -10,6 +10,9 @@
             </div>
             <div class="col-md-2">
                 <button class="btn btn-info ad-search-btn" (click)="showAdvSearch = true">Advanced Search</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-secondary ad-search-btn" (click)="keywordSearch = true;">keyword Search</button>
             </div>
         </div>
         <form [formGroup]="advSearchForm" (ngSubmit)="onSubmit(myForm)" *ngIf="showAdvSearch">
@@ -34,6 +37,32 @@
                 </div>
             </div>
         </form>
+        <div class="advSearchForm" *ngIf="keywordSearch">
+            <form [formGroup]="keywordSearchForm" (ngSubmit)="keyWordSearch(myForm)">
+                <div class="row">
+                    <div class="col-md-5">
+                        <input type="anyKeywords" class="form-control" formControlName="anykeywords"
+                            placeholder="enter any keywords" id="location">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="keywords" class="form-control" formControlName="allkeywords"
+                            placeholder="Enter all keywords">
+                    </div>
+                    <!-- <div class="col-md-5">
+                        <input type="excludingKeyWords" class="form-control" formControlName="excludingKeyWords"
+                            placeholder="Enter all excluding KeyWords">
+                    </div> -->
+                    <div class="col-md-5">
+                        <input type="location" class="form-control" formControlName="location"
+                            placeholder="Enter location">
+                    </div>
+                </div>
+                <div class="search-footer">
+                    <button class="btn btn-danger ad-search-btn padding-right-8" (click)="keywordSearch=false">cancel</button>
+                    <button class="btn btn-secondary ad-search-btn">Search</button>
+                </div>
+            </form>
+        </div>
         <div class="card bg-light text-dark" *ngFor="let candidate of candidates">
             <div class="card-body row">
                 <div class="col-md-4 offset-md-1">

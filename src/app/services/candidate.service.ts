@@ -88,4 +88,8 @@ export class CandidateService {
   getAdvancedSearch(searchCriteria) {
     return this.http.post(`${this.baseUrl}advSearch`, searchCriteria);
   }
+
+  keyWordSearch(keyWordSEarchConfig: Object){
+    return this.http.post(`${this.baseUrl}keyWordSearch`, keyWordSEarchConfig);
+  }
 }

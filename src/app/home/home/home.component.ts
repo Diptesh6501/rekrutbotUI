@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵCodegenComponentFactoryResolver } from '@angular/core';
 import { CandidateService } from 'src/app/services/candidate.service';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   file: any;
   showErrMsg: Boolean;
   advSearchForm: FormGroup;
+  keywordSearch: boolean;
+  keywordSearchForm: FormGroup;
   constructor(
     private candidateService: CandidateService,
     private router: Router,
@@ -38,6 +40,13 @@ export class HomeComponent implements OnInit {
     this.advSearchForm = new FormGroup({
       location: new FormControl(''),
       ctc: new FormControl(''),
+    });
+
+    this.keywordSearchForm = new FormGroup({
+      anykeywords: new FormControl(''),
+      allkeywords: new FormControl(''),
+      excludingKeyWords: new FormControl(''),
+      location: new FormControl('')
     });
   }
 
@@ -136,6 +145,22 @@ export class HomeComponent implements OnInit {
       await this.router.navigate(['candidateForm']);
     });
 
+  }
+
+  keyWordSearch() {
+    this.showLoader = true;
+    this.candidateService.keyWordSearch(this.keywordSearchForm.value).subscribe((res) => {
+      this.showLoader = false;
+      this.searchResult = res['searchResult'];
+      if (this.searchResult && this.searchResult.length) {
+        this.showSearch = true;
+        this.candidatesAvailable = true;
+      } else {
+        this.candidatesAvailable = false;
+      }
+    }, (err) => {
+      this.showLoader = false;
+    });
   }
 
   getFiles(event) {
