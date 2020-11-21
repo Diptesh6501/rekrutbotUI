@@ -154,9 +154,6 @@ export class HomeComponent implements OnInit {
       this.searchResult = res['searchResult'];
       if (this.searchResult && this.searchResult.length) {
         this.showSearch = true;
-        this.candidatesAvailable = true;
-      } else {
-        this.candidatesAvailable = false;
       }
     }, (err) => {
       this.showLoader = false;
